@@ -1,4 +1,3 @@
-## 올바른이미지를 찾자
 steps:
   - name: 'unityci/editor:ubuntu-2022.3.51f1-webgl-3.1.0'
     entrypoint: 'bash'
