@@ -1,0 +1,35 @@
+steps:
+  - name: 'unityci/editor:ubuntu-2022.3.51f1-webgl-3.1.0'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Unity 실행 파일 확인..."
+        ls -l /opt/unity/Editor/
+        echo "Unity 버전 확인..."
+        /opt/unity/Editor/Unity -version || true
+
+  - name: 'unityci/editor:ubuntu-2022.3.51f1-webgl-3.1.0'
+    entrypoint: '/opt/unity/Editor/Unity'
+    args:
+      - '-batchmode'
+      - '-nographics'
+      - '-quit'
+      - '-projectPath'
+      - '/workspace'
+      - '-executeMethod'
+      - 'Builder.BuildWebGL'
+      - '-logFile'
+      - '/workspace/unity.log'
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+      - '-m'
+      - 'cp'
+      - '-r'
+      - '/workspace/builds/WebGL/*'
+      - 'gs://${PROJECT_ID}-unity-builds/'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+timeout: '3600s'
