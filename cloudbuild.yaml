@@ -1,5 +1,5 @@
 steps:
-  # Unity 실행 파일 확인 및 빌드
+  # Unity 실행 파일 확인 및 빌드1
   - name: 'unityci/editor:ubuntu-2022.3.51f1-webgl-3.1.0'
     env:
       - 'UNITY_LICENSE=${_UNITY_LICENSE}'
